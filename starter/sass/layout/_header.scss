@@ -1,0 +1,56 @@
+.header {
+    height:  85vh; /*viewport height*/
+    background-image: linear-gradient(to right bottom,
+     rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)),
+       url('../img/hero-small.jpg');
+    background-size: cover; /*Tries to fit the size of the element  regardless of the viewport size*/
+    background-position: top;
+    position: relative;
+    /*
+    How to clip parts of elements using clip-path:clip-path:
+    FOUR COORDINATES: TOP LEFT, TOP RIGHT, BOTTOM LEFT, BOTTOM RIGHT.
+
+    clippy(clip-path maker): https://bennettfeely.com/clippy/
+    */
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+    @supports(clip-path: polygon(0 0) or (-webkit-clip-path: polygon(0 0))){
+        clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+        height:  95vh;
+    }
+
+    @media(min-resolution: 192dpi) and (max-width: 37.5em),  // RESOLUTION OF THE APPLE RETINA DISPLAY. media queries, a comma equals OR logical operator
+          (-webkit-min-device-pixel-ratio: 2) and (max-width: 37.5em){ // WORKAROUND FOR SAFARI
+        background-image: linear-gradient(to right bottom,
+         rgba($color-primary-light, 0.8), 
+         rgba($color-primary-dark, 0.8)), 
+         url('../img/hero.jpg');
+    }
+
+    
+
+    @include respond(phone){
+        clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    }
+
+
+    /*THE EASIEST WAY TO CENTER ANYTHING WITH THE TRANSFORM, TOP AND LEFT PROPERTIES.*/
+    &__logo-box {
+        position: absolute;
+        top: 4rem;
+        left: 4rem;/*top and left of the parent element when set to position: relative*/
+    }
+
+    &__logo {
+        width: 10rem;
+    }
+
+    &__text-box {
+        position: absolute;
+        top: 40%; /*In relation to the parent*/
+        left: 50%;
+        transform: translate(-50%, -50%); /*In relation to the element itself*/
+        text-align: center;
+    }
+}
